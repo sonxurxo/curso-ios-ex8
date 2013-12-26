@@ -10,6 +10,7 @@
 
 @interface ViewController : UIViewController
 
-@property (strong, nonatomic) IBOutlet UITextView *textView;
+@property (strong, nonatomic) IBOutlet UIImageView *imageView;
+
 - (IBAction)didTapSaveToCopyButton:(id)sender;
 @end

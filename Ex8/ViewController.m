@@ -17,13 +17,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSBundle *mainBundle = [NSBundle mainBundle];
-    NSString *myFile = [mainBundle pathForResource: @"File" ofType: @"txt"];
-    NSString* content = [NSString stringWithContentsOfFile:myFile
-                                                  encoding:NSUTF8StringEncoding
-                                                     error:NULL];
-    NSLog(@"- %@", content);
-    self.textView.text = content;
+
+    NSString *url = @"http://www.mujerstyle.com/wp-content/uploads/2013/01/casadibujo.png";
+    NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
+    self.imageView.image = [UIImage imageWithData:imageData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -42,7 +39,11 @@
         [[NSFileManager defaultManager] createDirectoryAtPath:filesDirectory withIntermediateDirectories:NO attributes:nil error:NULL];
     
     // Save file
-    NSString *myFile = [filesDirectory stringByAppendingPathComponent:@"Copy.txt"];
-    [self.textView.text writeToFile:myFile atomically:YES encoding:NSUTF8StringEncoding error:NULL];
+    NSString *myFile = [filesDirectory stringByAppendingPathComponent:@"Casa.png"];
+    
+    NSData *data = [NSData dataWithData:UIImagePNGRepresentation(self.imageView.image)];
+	[data writeToFile:myFile atomically:YES];
+    
+//    [self.imageView.image writeToFile:myFile atomically:YES encoding:NSUTF8StringEncoding error:NULL];
 }
 @end
